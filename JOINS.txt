@@ -1,0 +1,78 @@
+JOINS
+
+CROSS AND NATURAL JOINS 
+
+- Oracle proprietary join
+- ANSI/ISO SQL 99 compliant standard joins
+
+ANSI - American National Standards Institute
+SQL ANSI named after each year they were first proposed
+
+
+NATURAL JOIN
+- based on all columns in tables that have same name in different tables
+- selects rows from the tables that have equal values in all matched columns
+employee table will natural join jobs on job_id
+- SYNTAX
+ SELECT first_name, last_name, job_id,job_title
+FROM employees NATURAL JOIN jobs
+WHERE...
+
+CROSS JOIN - ANSI/ISO SQL
+- joins every row with every row of the other table
+- result is all possible combinations from the two tables
+- MAY BE POTENTIONALLY PRETTY LARGE 
+- SYNTAX 
+	SELECT last_name, department_name
+	FROM employees CROSS JOIN
+	departments;
+
+USING Clause
+- resolves the error of Natural join problem, if the column with same name has different types
+- specifies the columns that should be used for the join
+- the column referenced in USING clause should not have qualifier(table name or alias)
+- allows us to use WHERE to restrict rows from one or both tables
+- SYNTAX
+	SELECT first_name, last_name,department_id,department_name
+	FROM employee JOIN departments USING (department_id)
+
+ON Clause
+- USING with columns to be joined with different names >,<,or BETWEEN
+- WHERE clause ALLOWED
+- if using same named columns use qualifier(table name, aliases)
+- SYNTAX 
+	SELECT last_name, job_title
+	from employees e JOIN jobs j 
+	ON (e.job_id = j.job_id)
+	(WHERE AND STUFF)
+- SYNTAX with non-equality operator
+	SELECT last_name,salary,_grade_level,lowest_sal, highest_sal
+	FROM employees JOIN job_grades
+	ON(salary BETWEEN lowest_sal AND highest_sal);
+
+JOINING THREE TABLES
+- SYNTAX
+ 	SELECT last_name, department_name AS "Department", city
+	FROM employees JOIN departments USING (department_di)
+	JOIN locations USING(location_id);
+
+SELF-JOINS
+START WITH
+- identifies which row to use as the root
+
+CONNECT BY PRIOR
+- explains how to do inter-row joins
+
+SYNTAX
+	SELECT employee_id, last_name, job_id, manager_id
+	FROM employees
+	START WITH employee_id = 100
+	CONNECT BY PRIOR employee_id = manager_id
+
+
+LEVEL
+- how many branches deep the tree will traverse
+- SELECT LEVEL, last_name || 'reports to ' ||  
+	PRIOR last_name
+	FROM employee
+- LEVEL returns on what level is specified last name in the specified order

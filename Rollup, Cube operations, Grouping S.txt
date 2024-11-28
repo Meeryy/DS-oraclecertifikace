@@ -1,0 +1,77 @@
+Rollup, Cube operations, Grouping Sets
+
+
+ROLLUP
+- the number of columns or expressions determines the number of groupings
+- number of columns + 1
+- syntax
+SELECT department%id, job%id, SUM(salary)
+FROM employees
+WHERE department_id < 50
+GROUP BY ROLLUP(department_id,job_id);
+
+Department_id	job_id	sum(salary)
+10		add_ass	4400
+10		-   	4400 (subtotal)
+20		mk_man  13000
+20		mk_rep  6000
+20		-	19000 (subtotal)
+			23400(grandtotal)
+
+CUBE
+- cross-tabulation reports
+
+GROUPING SETS
+- multiple group byes in single select
+GROUP BY GROUPING SETS((job_id,manager_id),(department_id,job_id),(department_id,manager_id));
+
+- another usage
+SELECT department_id, job_id,SUM(salary),
+	GROUPING(departent_id) AS "dept sub total",
+	GROUPING(job_id) AS "job sub total"
+FROM employees
+WHERE department_id<50
+GROUP BY CUBE (department_id,job_id);
+---- shows where is dept sub total and job sub total by printing out 1 and 0
+
+GROUPING - to identify extra row values created by ROLLUP or CUBE
+
+Rules for SET operators
+- number of columns and the data types must be identical in all of the SELECT statements
+- the names need not be identical
+- colmn names in the output are taken from the column names in the first  SELECT statement
+
+UNION
+- syntax
+SELECT a_id
+FROM a
+UNION
+SELECT b_id
+FROM b;
+--- lists all elemenss in A and B eliminating duplicates
+--- if joined list would list only 4 and 5 if not full outer joined
+
+UNION ALL
+- same as UNION but with duplicates
+
+INTERSECT 
+- displays values common to both tables
+SELECT a_id
+FROM a
+INTERSECT
+SELECT b_id
+FROM b;
+
+MINUS
+- subrstacts all rows foud in one table !left join
+
+- TO_CHAR(NULL] to creat matching columns - can be used to match columns in a SELECT list
+
+SELECT a_id
+FROM a
+INTERSECT
+SELECT b_id
+FROM b
+ORDER BY number_id;
+
+

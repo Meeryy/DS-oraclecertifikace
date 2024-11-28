@@ -1,0 +1,53 @@
+Views
+- syntax
+CREATE VIEW view_employees[table naem]
+AS SELECT employee_id, first_name,last_name,email[subquery]
+ FROM employees [check constraint]
+ WHERE employee id BETWEEN 100 and 123; [READ ONLY CONSTRAINT
+
+SELECT * 
+FROM view_employees
+
+
+OR REPLACE - recreates the view if it already exists
+FORCE - creates no matter what
+NOFORCE - only if the table exists(default)
+vien_name - name
+alias - nickname
+subquery - sub sub
+
+Complex vs Simple views
+
+Simple
+- one table to derive data from
+- cant contain function
+- cant contain groups of data
+- can perform DML operations
+- whether or not base table exists(FORCE)
+- syntax
+CREATE OR REPLACE VIEW view_euro_countries
+AS SELECT country_id, country_name, capitol
+FROM wtf_countries
+	WHERE location LIKE '%EUROPE';
+
+
+Complex
+- one or more table to derive data from
+- cant contain function
+- cant contain groups of data
+- not always can perform DML operations
+- contain functions and joins
+- syntax 
+CREATE OR REPLACE VIEW view_euro_countries
+AS SELECT country_id AS "ID", country_name AS "CO", capitol
+FROM wtf_countries
+	WHERE location LIKE '%EUROPE';
+
+also as
+
+CREATE OR REPLACE VIEW view_euro_countries("ID", "Country","Capitol Cty")
+AS SELECT country_id AS "ID", country_name AS "CO", capitol
+FROM wtf_countries
+	WHERE location LIKE '%EUROPE';
+
+TO MODIFY USE OR REPLACE ARGUMENT

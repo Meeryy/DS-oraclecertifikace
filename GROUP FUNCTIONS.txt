@@ -1,0 +1,15 @@
+GROUP FUNCTIONS
+- cannot be used in WHERE statements
+AVG
+- numeric data
+COUNT 
+- number of rows
+MIN
+- any data
+MAX
+- any data
+SUM
+- numeric data
+VARIANCE
+
+STDDEV

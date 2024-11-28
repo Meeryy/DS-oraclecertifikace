@@ -1,0 +1,45 @@
+DML Operations and Views
+
+- it is possible to INSERT, UPDATE and DELETE information even if it results in a row no longer being part of the view
+
+Data access control
+- WITH CHECK OPTION ONLY
+- WITH READ ONLY
+
+CHECK Option
+
+- syntax
+CREATE OR REPLACE VIEW
+
+
+- you can create a view if the subquery contains an inline view
+
+DELETING A VIEWS
+
+- DROP VIEW view
+
+
+INLINE VIEWS
+- subqueries in the FROM clause
+- simplifies complex queries by removing join operations and condensing several queries into one
+
+- syntax
+SELECT e.lname, e.salary, e.department,d.maxsal
+FROM employees w, (SELECT d_id, max(salary), maxsal
+FROM employees
+GROUP BY d_id) d
+WHERE e.d_id = department_id
+AND e.salary = d.maxsal;
+
+TOP-N-ANALYSIS
+- ranks results
+- top 5 records or top-n-records of a result set returned by a query
+- uses an inline view to return a result set
+- ROWNUM to assign a row number to the result set
+- syntax
+
+SELECT ROWNUM AS "Longest employed", last_name,hire_date 
+FROM (SELECT last_name,hide_date
+FROM employees
+ORDER BY hire_date)
+WHERE ROWNUM <=5;

@@ -1,0 +1,143 @@
+Creating tables
+
+DECRIBE 
+- returns tables columns and its types,length,etc..
+
+ORGANIZATION EXTERNAL
+- create an external table
+
+TYPE ORACLE_LOADER
+- offtype oracle loader(Oracle product)
+
+DEFAULT DIRECTORY def_dir1
+- directory file name
+
+ACCESS PARAMETERS 
+- how to read the file
+
+RECORDS DELIMITED BY NEWLINE 
+- how to identify the start of a new row
+
+FIELDS
+-- field name and data type specifications
+
+LOCATION
+- name of the actual file containing the data
+
+ORGANIZATION EXTERNAL
+(TYPE ORACLE_LOADER
+DEFAULT DIRECTORY DEF_DIRL
+ACCESS PARAMETERS
+(RECORDS DELIMITED BY NEWLINE
+FIELDS(employee_number CHAR(2)....))
+
+DATATYPES - most common
+character values:
+-CHAR
+-VARCHAR
+-CLOB - variable size, maxx 128 terabytes
+number 
+INT
+DECIMAL
+FLOAT
+VARCHAR
+
+date and time values
+- DATE 
+- TIMESTAMP
+-- TIMESTAMP(3) allows 3 digits after whole seconds
+-- CREATE TABLE time_ex2(time_with_offset TIMESTAMP WITH TIME ZONE);
+-- INSERT INTO time_exp2
+VALUES ('10-Jun-2017 10:52:29.123456 AM +2:00');
+
+- INTERVAL
+
+binary values(JPG, WAV, MP3...) 
+- RAW
+- BLOB 
+
+
+INTERVAL Data Types
+
+INTERVAL YEAR TO MONTH 
+- years and month
+- INTERVAL YEAR [(year_precision)] TO MONTH
+INTERVAL DAY TO SECOND 
+- days, hours, minutes, seconds
+- SELECT SYSDATE +day_durational AS "25 days form now",
+	TO_CHAR(SYSDATE + day_duration2, 'dd-Mon-yyyy hh:mi:ss')
+	AS "precise days and time from now"
+FROM time_ex5;
+
+ALTER TABLE 
+- add new column
+- ALTER TABLE  tablename
+ADD (column name data type [DEFAULT expression],
+column name data type [DEFAULT expression]....)
+- modify an existing column
+- ALTER TABLE table_name
+	MODIFY (last_name VARCHAR(30));
+
+- you can change data type only if the column contains null values
+- VARCHAR2 to CHAR only if the value is null or you do not change the size to smth smaller
+
+
+- Define a DEFAULT value for a column
+ALTER TABLE table_name
+	MODIFY (salary NUMBER(8,2) DEFAULT 50)
+- Drop column
+ALTER TABLE table name
+DROP COLUMN columnname;
+
+SET UNUSED 
+- better than drop column
+- still there but invisible
+ ALTER TABLE tablename SET UNUSED (column_name);
+- ALTER TABLE tablename
+	DROP UNUSED COLUMNS; - drops all unused columns
+
+DROP TABLE
+- onlz the creator of the table or user with privilege
+DROP TABLE tablename;
+
+if deleted by accident
+-FLASHBACK TABLE tablename TO BEFORE DROP
+- can be queried 
+SELECT original_name,operation, droptime
+FROM user_recyclebin
+
+- to bypass bin 
+DROP TABLE tablename PURGE;
+
+RENAMING TABLE
+- RENAME old_name to new_name;
+
+TRUNCATE
+- removes all rows from table 
+- cannot be rolled back
+- must have privileges
+TRUNCATE TABLE tablename;
+TRUNCATE does not generate rollback information therefore faster 
+
+
+COMMENT ON TABLE
+COMMENT ON TABLE talbename | COLUMN table.column
+IS 'place your comment here';
+
+-Viewing comment on table
+SELECT table_name, comments
+FROM user_tab_comments
+
+-to drop use empty string
+COMMENT ON TABLE employees IS ' ';
+
+FLASHBACK QUERY
+SELECT employee_id,first_name ||' '|| last_name AS "NAME", 
+	versions_operation AS "OPERATION",
+	versions_starttime AS "START_DATE", salary
+FROM employees
+	VERSIONS BETWEEN SCN MINVALUE AND MAXVALUE
+WHERE employee_id = 1;
+--SCN number referred to means System Change Number and is a precise identification of time in the database
+-- incremented and maintained by the database itself
+

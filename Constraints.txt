@@ -1,0 +1,23 @@
+Constraints
+
+
+COLUMN LEVEL
+- column-level referes to the area in the CREATE TABLE statement
+ -> client_id NUMBER(20) CONSTRAINT clients_client_num_pk PRIMARY KEY;
+- user-named and system-named 
+- system named are not named at all threfore hard to find
+
+TABLE LEVEL
+- are listed separately from the column definitions
+- are listed after all the table columns have been defined
+- last CREATE TABLE statemend - CONSTRAINT clitents_phone_email_uk UNIQUE (mail,phone);
+
+BASIC RULES
+- constraints that refer to more than 1 column must be defined on table level
+- the NOT NULL can be specified on column level only
+- UNIQUE, PRIMARY KEY, FOREIGN KEY and CHECK can be defined on both levels
+- if CONSTRAINT is used in CREATE TABLE you must give the constraint a name
+
+UNIQUE, NOT NULL, UNIQUE KEY
+
+UNIQUE KEY - if at 1 is NULL key is UNIQUE because NULL is considered non-equal to anything

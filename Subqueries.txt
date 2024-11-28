@@ -1,0 +1,29 @@
+Subqueries
+- single-row >,<,<=
+- multiple-row(IN,ANY, ALL) - return more than one row from inner query
+- example
+SELECT first_name,last_nam,hire_date
+FROM employees
+WHERE hire_date>(SELECT hire_date FROM employees WHERE last_name='Vargas');
+
+-if subquery is NULL outer query is NULL too
+
+CORRELATED SUBQUERIES
+- is evaluated once for each row processed by the parent statement
+- Parent statement - SELECT, UPDATE, DELETE
+GET 
+- candidate row from outer query
+
+EXECUTE
+- inner query using candidate row vale
+ 
+USE
+- values from inner query to qualify or discqualify candidate row
+
+NOT IN vs NOT EXISTS
+- different results
+- returns TRUE FALSE UNKNOWN
+- if not sure whether the is or not NULL value use WHERE smth IS NOT NULL or NOT EXISTS to be safe
+
+WITH clause
+?????????????????????????????????,

@@ -1,0 +1,48 @@
+ALTER 
+
+ALTER
+- name of the table
+- name of the constraint
+- type of the constraint
+- name of the column affexted
+-syntax
+ALTER TABLE employees
+ADD CONSTRAINT column PRIMARY KEY(which column);
+- ALTER TABLE table_name
+ADD [CONSTRAINT constraint_dame type(column name)
+-- same for foreign key
+
+MODIFY
+
+- altered table must have either empty clumns or value for every row
+ALTER TABLE table_name
+MODIFY (column_name CONSTRAINT constraint_name NOT NULL);
+
+DROP
+- no rows only CONSTRAINT
+ALTER TABLE table_name
+DROP CONSTRAINT  name [CASCADE]
+-- if you dont know the name USER_CONSTRAINTS and USER_CONS_COLUMNS
+
+DISABLE clause
+- can be used in both ALTER and CREATE table statement
+-  just DISABLE CONSTRAINT name_of_the_constraint
+- to enable just use cmon sense fr (ENABLE CONSTRAINT)
+
+CASCADE
+- disables dependent integrity constraints
+- even if later enabled these are not automatically enabled
+
+DESCRIBE
+- confirmation existence of table
+- NOT NULL CONSTRAINT ONLy- will appear as CHECK constraint
+
+To view all constraints on your table syntax
+SELECT cosntraint_name, table_name, cosntraint_type, status
+FROM USER_CONSTRAINTS
+WHERE table_name = 'COPYEMPLOYEES
+
+P - PRIMARY KEY
+C - CHECK constraint
+U - UNIQUE'
+ 

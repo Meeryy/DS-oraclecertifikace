@@ -1,0 +1,57 @@
+INDEXES AND SYNONYMS - send to lobotomik
+
+Indexes
+- logically and physically independed
+- unique indexes - UNIQUE and PRIMARY KEY
+- nonunique indexes - usermade indexes f.e. FOREIGN KEY
+- the table must be in your own schema
+- INDEX privilege on the table 
+- CREATE ANY INDEX system privilege
+- should be created if
+the column contains a wide range of values
+column contains a large number of nulls
+one or more coulmns are frequently used together in a WHERE or join condition
+the table is so large that most queries are expected to retrieve less than 2-4%
+
+- creating index syntax
+CREATE INDEX index_name
+ON table_name(column...., column)
+
+COMPOSITE INDEX
+- a.k.a concatenated 
+- created on multiple columns in a table
+- Null values are not included
+- can create an index on the FOREIGN KEY 
+- not used if index is NULL in WHERE clause
+
+CONFIRMING INDEXES
+
+- USER_INDEXES, USER_IND_COLUMNS
+- syntax
+SELECT DISTINCT ic.index_name, ic.column_name, ic.column_position, id.uniqueness
+FROM user_indexes id, user_ind_columns ic
+WHERE id.table_name = ic.table_name
+and ic.table_name = 'EMPLOYEES'
+- NO MODIFYING DROP THAT SHIT DOWN, YOU MESS UP YOU REDO
+-- DROP INDEX name
+
+FUNCTION-BASED INDEXES
+- defined with the UPPER or LOWER function or any valid built-in function f.e. TO_CHAR
+- syntax
+CREATE INDEX upp_last_name
+ON employees (UPPER(last_name));
+
+
+SYNONYM
+- used to simplify access to objects by crating another name for the object
+- cannot be contained in a package
+- private must be distinct from all other objects owned by the same user
+- CREATE PUBLIC SYNONYM privilege - otherwise no no
+- CREATE [PUBLIC] SYNONYM synonym
+FOR object;
+
+CREATE SYNONYM name
+for object;
+
+to confirm
+- query USER_SYNONYMS

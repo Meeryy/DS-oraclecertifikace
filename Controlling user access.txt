@@ -1,0 +1,63 @@
+Controlling user access
+
+- system security and data security
+
+- creating user syntax
+CREATE USER user
+IDENTIFIED BY password;
+- altering user
+
+ALTER USER name
+IDENTIFIED BY  password; - changes password
+
+- granting privileges
+GRANT privilege [privilege,s] 
+TO user [user|role, PUBLIC];
+
+- all users have CREATE SESSION privilege, cannot be issued
+- SELECT CAN'T BE GRANTED ON SELECTED OBJECTS
+- to grant privilege to all users syntax
+GRANT select
+ON object
+TO PUBLIC
+
+VIEWING PRIVILEGES
+- ROLE_SYS_PRIVS
+- ROLE_TAB_PRIVS
+- USER_ROLE_PRIVS
+- USER_ROLE_PRIVS_MADE
+- ETC NOT GONNA WRITE IT ALL THEY ARE NOT GONNA ASK ABOUT IT ANYWAY
+
+
+- CREATE ROLE name;
+- GRANT create table, create view TO name;
+- GRANT manager TO user;
+
+- GRANT object_priv [{colum_list}]
+ON object_name
+TO {user|role|PUBLIC}
+[WITH GRANT OPTION];
+
+- gives user Scott access to your clients table with the privileges to query the table and add rows to the table
+- also can give these privileges
+- same goes for PUBLIC
+GRANT SELECT, INSERT
+ON clients
+TO scott_kind 
+WITH GRANT OPTION
+
+- revoking the privileges
+REVOKE {privilege [privilege...] ALL}
+ON object
+FROM {[USER...|role|PUBLIC}
+[CASCADE CONSTRAINTS];
+
+DATABASE LINKS
+- USER_DB_LINKS
+- CREATE PUBLIC SYNONYM HQ-emp
+ FOR emp@HQ.ACME.COM;
+
+SELECT * 
+FROM HQ_EMP;
+- cannot grant privileges on remote objects
+

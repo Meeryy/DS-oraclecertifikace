@@ -1,0 +1,60 @@
+Sequences
+
+CREATE SEQUENCE sequence
+[INCREMENT BY n]
+[START WITH n]
+[(MAXVALUE n | NOMAXVALUE}]
+[MINVALUE n | NOMINVALUE}]
+[{CYCLE | NOCYCLE}]
+[{CACHE n | NOCACHE}];
+
+sequence - name of the sequence
+INCREMENT BY n - specifies the interval between sequence numbers n is integer
+START WITH n - specifies the first sequence number
+NOCYCLE - is default, specifies whether the sequence continues to generate values after searching its max or min
+CACHE - specifies how many values the Oracle server preallocates and keeps in memory
+
+- syntax
+CREATE SEQUENCE runned_id_seq
+INCREMENT BY 1
+START WITH 1
+MAXVALUE 50000
+NOCACHE
+NOCYCLE;
+
+CONFIRMING SEQUENCES
+- to confirm creation - USER_OBJECTS data dictionary
+- to see lal of the SEQUENCE settings - USER_SEQUENCES 
+-- syntax SELECT sequence_name, min_value, max_value, increment_by, last_num
+	FROM  user_sequences;
+
+- if NOCACHE - last_num colum displayes next available sequence number
+- if CACHE - last_num column displays next available number in the sequence which has not been cached into memory
+
+NEXTVAL and CURRVAL
+- sequence MUST be created before called by NEXTVAL and CURRVAL
+- syntax
+INSERT INTO employees
+(employee_id, department_id...)
+VALUES (employee_seq.NEXTVAL, dept_deptid_seq.CURRVAL...);
+- can be used only if 
+the SELECT list of a SELECT statement is not part of a subquery
+the SELECT LIST of a subquery in an INSERT statement
+the VALUES clause of an INSERT statement
+the SET clause of an UPDATE statement
+- ypu MUST be the owner or have the ALTER privilege
+- only future sequence are affected
+- the START WITH options cannot be altered using ALRET SEQUENCE  - dropped and recreated
+
+- viewing Next value with NOCACHE
+- syntax
+SELECT sequence_name, min_value, max_value, last_number AS "Next number"
+FROM USER?SEQUENCES
+WHERE sequence_name = 'RUNNER_ID_SEQ'
+
+-altering sequence syntax
+ALTER SEQUENCE runner_id_seq
+INCREMENT BY 1
+MAXVALUE 9999999
+NOCACHE 
+NOCYCLE

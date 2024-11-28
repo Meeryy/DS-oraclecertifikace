@@ -1,0 +1,126 @@
+Dual function 
+
+table which has 2 attributes, x and dummy
+
+select a+b
+from dual will ececute the function in select and return the solution
+
+single row funcitons can be used in the SELECT, WHERE and ORDER BY
+
+case-manipulation * good when you have no idea in what format are the data stored(upp, low, mix]
+ allows to temporarily convert the database data to a case of our choosing
+therefore mismatches between db case storage and query are avoided
+
+Character functions
+
+Case-Manipulation functions - lower, upper initcap{first cap}
+Character-Manipulation Functions -
+ concat{joins two values together aka 'word'|| 'word2'}, 
+substr{'word', starting position,
+ length{if none, returns all to the end},
+ length, instr{string, the substring, if none reutrns null,
+ lpad{thestring, total amount, character to pad with},
+ rpad{same as lpad, just right}, 
+trim {
+leading string - from beginning
+trailing string - from end
+both string - from both ends
+FROM 'trimmed string'
+replace - string1 - original, string to replace - substring that will be taken off the original, [replacementstring] - new string to be inserted in original
+
+
+
+DECODE
+TO_CHAR
+NVL
+NVL2
+NULLIF
+
+
+DATA types
+
+VARCHAR2
+- data with variable length, numbers, dashes, special chars
+
+CHAR
+- fixed lenght, numbers, dashes, special characters
+- TO_CHAR(date column name, 'format model')
+- use fm to remove padded blanks, th to 4th, 1st, sp to spell out a numner
+- SELECT TO_CHAR(hire_date, 'fmMonth ddthsp', 'YYYY')
+- TO_CHAR(NUMBER, ´format model´)
+format models - '$99999.99', '99,999', '99,999.99','0009999'
+
+NUMBER
+- variable-lenght numbers
+- TO_NUMBER(character string, ´format model´)
+
+DATE 
+- date and time, stored as numbers
+- TO_DATE(´string´, ´format model´)
+- format models ´May10,989´. ´fxMonDD,YYYY´  - fits format model, no spaces between mon and dd
+- RR instead of YY interprets 99 as 1999, 0-49 current century, 50+ last
+- if current year is between 50-99 then 0-49 is next century
+
+NVL
+- converts null to known value
+- syntax NVL(expression with possible null, subtstitution)
+
+
+
+NVL2
+- 3 values
+- if 1st expression is null then returns 3rd expression, if 1st expression is not null, returns 2nd expression
+- 1st value can have any data type, 2nd and 3rd any except LONG
+- returned data are always the same as the data of 2nd expression except when expression 2 is character then returned type is VARCHAR2
+ - SYNTAX:
+	NVL2(expression 1 value that may contain a null, expression 2 value to return if 1 is not null. expression 3 to return a value if 1 is null)
+
+NULLIF
+- compares 2 expressions 
+- if equall returns null
+- if not equall returns 1st expression
+- SYNTAX
+	NULLIF(expression 1, expression2)
+
+COALESCE
+- extension of the NVL function
+- "literally to come together"
+- finds first not null expression and returns
+- SYNTAX
+	COALESCE(expression 1, expression 2, .... expression n)
+
+CONDITIONAL EXPRESSIONS
+
+CASE - EXPRESSION
+- same as switch statement in python, C# etc.
+-  types IN CASE WHEN and ELSE must be the same
+- SYNTAX
+	CASE expr WHEN comparison_expr1 THEN return_expr1
+		[WHEN comprasion_expr2 THEN return_expr2
+		WHEN comparison_expr3 THEN return_expr3
+		ELSE else_expr]
+	END
+	CASE ID WHEN 90 THEN 60
+		[WHEN 60 THEN 88
+		WHEN 77 THEN 12
+		ELSE 0]
+	END
+DECODE 
+- similar logic in IF-THEN-ELSE logic
+- DECODE(column1|expression, search1, result1
+	[,search2, result2...,]
+	[,default]) - returns null value
+
+DECODE(department_id, 90, 'MAnagement',
+	,80, 'Sales',
+	'Other dept' - returns default value
+
+DECODE IS SPECIFIC TO ORACLE SYNTAX 
+
+
+
+
+Oracle server - can convert varchar and char to number and date and back
+
+
+Not all date functions return date values

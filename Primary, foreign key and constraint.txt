@@ -1,0 +1,30 @@
+Primary, foreign key and constraints
+
+- no null part
+- 1 primary key per table
+- can be defined at the column or the table level
+- composite one is on the table level
+- suffix _pk is good
+- composite key syntax 
+CONSTRAINT  copy_alskjdf_pk PRIMARY KEY (employee_id, start_date));
+
+FOREIN KEY
+- must match existing value or be NULL
+- suffix _fk is good
+- syntax
+CONSTRAINT x_sdkflj_fk FOREIGN KEY(column) REFERENCES  table(primarykey);
+
+ON DELETE CASCADE
+- deletes row when parent primary key is deleted
+- if not specified parent table cannot be deleted
+- syntax
+CONSTRAINT ddd_fk FOREIGN KEY(fk) REFERENCES table(primary_key) ON DELETE CASCADE
+-- or ON DELETE SET NULL
+
+CHECK
+-- CONSTRAINT aksdj_ck CHECK(end_date>start_date)
+- only where the value is defined
+- no references to other rows
+- no SYSDATE UID USER USERENV
+- no pseudocolumns CURRVAL, NEXTVAL, LEVEL, ROWNUM
+- both table and column-level

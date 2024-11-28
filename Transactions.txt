@@ -1,0 +1,18 @@
+Transactions
+
+
+- begins with the first DML(INSERT, UPDATE, DELETE, MERGE) statement
+- ends with 
+COMMIT or ROLLBACK
+ A DDL (CREATE, ALTER, DROP, RENAME, TRUNCATE
+A DCL (GRANT or REVOKE)
+a user exits normally from the Oracle Database utility - causes the current transaction to be implicitly commited
+
+READ CONSISTENCY
+- readers do no viw data that is in the process of being changed
+
+
+COMMIT, ROLLBACK and SAVEPOINT
+- COMMIT and ROLLBACK ensure data consistency
+- SAVEPOINT creates a point in a transaction to which we can rollback without having to undo the entire transaction
+- COMMIT, ROLLBACK and SAVEPOINT - Transaction Control Language - TCL

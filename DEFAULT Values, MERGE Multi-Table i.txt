@@ -1,0 +1,62 @@
+DEFAULT Values, MERGE Multi-Table inserts
+- can be specified when table is updated - if not specified = NULL
+- syntax
+CREATE TABLE my_employees(
+	hire_date  DATE DEFAULT SYSDATE,
+...)
+
+-Can be used explicitly or implicitly
+- VALUES(DEFAULT,'Angelina', 'Wright')
+- VALUES('Angelina', 'Wright')
+
+MERGE
+- INSERT and UPDATE combined
+- if values missing new one is inserted
+- need to have INSERT and  UPDATE privileges SELECT one the source table
+- aliases can be used
+- syntax
+MERGE INTO destination-table USING source-table ON matching-condition
+	WHEN MATCHED THEN UPDATE
+	SET .....
+	WHEN NOT MATCHED THEN INSERT
+	VALUES(...)
+
+MERGE INTO copy_emp c USING employees ON employees e
+	ON (c.employee_id = e.employee_id)
+	WHEN MATCHED THEN UPDATE
+	SET c.last_name = e.last_name
+		c.department_id = e.department_id
+	WHEN NOT MATCHED THEN INSERT
+	VALUES(e.employee_id, e.last_name,e.department_id)
+
+Multi-table INSERTS
+
+Specifying ALL
+- if default specified, ALL evaluates each WHEN clause no matter other WHEN result
+- for each true result 	ALL executes corresponding INTO clause list
+Specifying FIRST
+- evaluates WHEN clauses in order it appears in the statement
+- the first WHEN executed, others are left behind
+Specifying ELSE clause
+- if no true WHEN - ELSE clause
+- if no ELSE clause - no action
+
+- syntax
+INSERT ALL INTO clause VALUES clause SUBQUERY
+
+INSERT ALL
+INTO my_employees
+VALUES (hire_date,first_name,last_name)
+INTO copy_my_employees
+VALUES (hire_date,_first_name,last_name)
+SELECT hire_date,fisrt_name,last_name
+FROM employees
+
+INSERT ALL
+WHEN ... IN ... THEN
+INTO ...
+VALUES...
+SELECT...
+FROM
+WHERE ....
+
